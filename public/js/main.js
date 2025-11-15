@@ -97,29 +97,24 @@ document.querySelectorAll('.hero-stats, .portfolio-card, .timeline-item, .about-
   observer.observe(el);
 });
 
-// Contact form handling
+// Contact form handling - using Formspree for static hosting
 contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const formData = {
-    name: document.getElementById('name').value,
-    email: document.getElementById('email').value,
-    company: document.getElementById('company').value,
-    message: document.getElementById('message').value
-  };
+  const formData = new FormData(contactForm);
 
   try {
-    const response = await fetch('/api/contact', {
+    // Using Formspree - replace YOUR_FORM_ID with actual Formspree form ID
+    // Sign up at formspree.io to get your form endpoint
+    const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
       method: 'POST',
+      body: formData,
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+        'Accept': 'application/json'
+      }
     });
 
-    const result = await response.json();
-
-    if (result.success) {
+    if (response.ok) {
       contactForm.style.display = 'none';
       formSuccess.classList.add('show');
 
@@ -129,10 +124,12 @@ contactForm.addEventListener('submit', async (e) => {
         contactForm.style.display = 'block';
         formSuccess.classList.remove('show');
       }, 5000);
+    } else {
+      throw new Error('Form submission failed');
     }
   } catch (error) {
     console.error('Error submitting form:', error);
-    alert('There was an error sending your message. Please try again.');
+    alert('There was an error sending your message. Please try again or email us directly at info@masriventures.com');
   }
 });
 

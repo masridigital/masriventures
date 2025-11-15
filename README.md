@@ -4,110 +4,135 @@ Professional website for Masri Ventures - Private Equity & Acquisitions firm.
 
 ## Technology Stack
 
-- **Backend**: Node.js with Express.js
-- **Frontend**: Vanilla JavaScript with modern CSS
-- **Security**: Helmet.js, rate limiting, compression
-- **Hosting**: Optimized for Cloudways Flexible Application
+- **Frontend**: Static HTML, CSS, and JavaScript
+- **Hosting**: Cloudflare Pages
+- **Contact Form**: Formspree integration
+- **Performance**: Optimized caching and security headers
+
+## Cloudflare Pages Deployment
+
+### Quick Deploy
+
+1. **Connect Repository**
+   - Go to [Cloudflare Pages Dashboard](https://dash.cloudflare.com/pages)
+   - Click "Create a project"
+   - Select "Connect to Git"
+   - Choose your GitHub repository
+
+2. **Configure Build Settings**
+   - **Project name**: masri-ventures (or your preference)
+   - **Production branch**: main
+   - **Build command**: `npm run build`
+   - **Build output directory**: `public`
+   - **Root directory**: `/` (leave default)
+
+3. **Deploy**
+   - Click "Save and Deploy"
+   - Cloudflare will build and deploy your site
+   - You'll get a `.pages.dev` URL immediately
+
+4. **Custom Domain (Optional)**
+   - Go to your project settings
+   - Click "Custom domains"
+   - Add `masriventures.com`
+   - Update your DNS to point to Cloudflare
+
+### Contact Form Setup
+
+The contact form uses Formspree. To enable it:
+
+1. Sign up at [formspree.io](https://formspree.io)
+2. Create a new form
+3. Copy your form ID
+4. Replace `YOUR_FORM_ID` in `public/js/main.js` with your actual form ID
+
+```javascript
+// Line 109 in public/js/main.js
+const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+```
 
 ## Local Development
 
-### Prerequisites
-
-- Node.js 18.x or higher
-- npm or yarn
-
-### Installation
+### Preview Locally
 
 ```bash
-npm install
+# Using npx serve (no install required)
+npx serve public -l 3000
+
+# Or with npm script
+npm run preview
 ```
 
-### Running Locally
-
-```bash
-# Development mode with auto-reload
-npm run dev
-
-# Production mode
-npm start
-```
-
-The application will be available at `http://localhost:3000`
-
-## Cloudways Deployment
-
-### Setting Up on Cloudways
-
-1. **Create Application**
-   - Log into Cloudways console
-   - Add new application
-   - Select "Custom App" or "Node.js"
-   - Choose your server and provide application details
-
-2. **Configure Application**
-   - Set Node.js version to 18.x in Application Settings
-   - Set the application root to `/public_html`
-   - Set startup file to `server.js`
-
-3. **Deploy Code**
-   - Connect your Git repository OR
-   - Use SFTP to upload files to `/public_html`
-
-4. **Install Dependencies**
-   - SSH into your server
-   - Navigate to application directory
-   - Run `npm install --production`
-
-5. **Start Application**
-   - Set PM2 or Node process manager
-   - Configure environment variables if needed
-   - Start with `npm start`
-
-### Environment Variables
-
-```bash
-PORT=3000  # Default port (Cloudways will set this automatically)
-```
-
-### Cloudways-Specific Configuration
-
-The application is configured for Cloudways with:
-
-- **Health Check Endpoint**: `/health` for monitoring
-- **Security Headers**: Helmet.js for secure headers
-- **Compression**: Gzip compression for better performance
-- **Rate Limiting**: Protection against abuse
-- **Static File Serving**: Optimized for production
+Visit `http://localhost:3000`
 
 ## Project Structure
 
 ```
 masriventures/
-├── server.js              # Main Express server
-├── package.json           # Dependencies and scripts
-├── .nvmrc                 # Node version specification
-├── public/                # Static assets
-│   ├── index.html         # Main HTML file
-│   ├── css/
-│   │   └── style.css      # Styles
-│   └── js/
-│       └── main.js        # Client-side JavaScript
-└── README.md              # This file
+├── package.json           # Project metadata
+├── .nvmrc                 # Node version (for Cloudflare)
+├── .gitignore             # Git ignore rules
+├── README.md              # This file
+└── public/                # Static site root (Cloudflare serves this)
+    ├── index.html         # Main HTML file
+    ├── _headers           # Cloudflare security headers
+    ├── _redirects         # Cloudflare redirect rules
+    ├── css/
+    │   └── style.css      # Styles
+    └── js/
+        └── main.js        # Client-side JavaScript
 ```
 
 ## Features
 
-- Responsive, mobile-first design
-- Smooth scroll animations
-- Contact form with API endpoint
-- SEO optimized
-- Fast load times with compression
-- Security best practices
+- **Modern Design**: Professional PE firm aesthetic with gold/navy color scheme
+- **Responsive**: Mobile-first, works on all devices
+- **Fast**: Static site with optimal caching (100/100 Lighthouse score potential)
+- **Secure**: Security headers configured via `_headers`
+- **SEO Optimized**: Meta tags and semantic HTML
+- **Animations**: Smooth scroll and fade-in effects
+- **Contact Form**: Formspree integration for email handling
+
+## Sections
+
+- **Hero**: Main landing with animated statistics
+- **About**: Company overview and values
+- **Portfolio**: Masri Digital Marketing & Off The Record Events
+- **Our Approach**: 4-step value creation process
+- **Contact**: Form and contact information
+
+## Customization
+
+### Updating Content
+Edit `public/index.html` directly - it's plain HTML.
+
+### Styling Changes
+Modify `public/css/style.css` - uses CSS variables for easy theming:
+
+```css
+:root {
+  --primary: #0a1628;      /* Dark navy */
+  --accent: #c9a961;       /* Gold */
+  --text: #2d3748;         /* Dark gray */
+}
+```
+
+### JavaScript
+Edit `public/js/main.js` for interactivity changes.
+
+## Performance
+
+Cloudflare Pages provides:
+- Global CDN distribution
+- Automatic HTTPS
+- DDoS protection
+- Instant cache invalidation
+- Analytics (optional)
 
 ## Portfolio Companies
 
-- Masri Digital Marketing
-- Off The Record Events
+- **Masri Digital Marketing** - Full-service digital marketing agency
+- **Off The Record Events** - Event production and experiences
 
 ## Contact
 
@@ -115,4 +140,4 @@ For inquiries, visit the website contact form or email info@masriventures.com
 
 ---
 
-&copy; 2024 Masri Ventures. All rights reserved. Founded by Joseph Masri.
+© 2024 Masri Ventures. All rights reserved. Founded by Joseph Masri.
