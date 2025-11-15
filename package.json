@@ -4,6 +4,7 @@
   "description": "Masri Ventures - Private Equity & Acquisitions",
   "scripts": {
     "build": "echo 'Static site - no build required'",
+    "deploy": "echo 'Deployment handled by Cloudflare Pages'",
     "preview": "npx serve public -l 3000"
   },
   "keywords": ["private-equity", "acquisitions", "investments"],
